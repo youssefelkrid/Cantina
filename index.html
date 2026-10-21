@@ -1,12 +1,324 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cantina - Garde-Manger &amp; Planning</title>
+    <link rel="stylesheet" href="output.css">
+    <style>
+        .page-header {
+            display: grid;
+            grid-template-columns: 180px minmax(0, 1fr) 180px;
+            align-items: center;
+            min-height: 116px;
+            width: 100%;
+            background: #f7ecd9;
+            border-bottom: 3px solid #bd351f;
+            box-shadow: 0 3px 12px rgb(45 25 15 / 10%);
+        }
+
+        .page-header-logo {
+            display: block;
+            width: 100%;
+            height: 112px;
+            object-fit: contain;
+        }
+
+        .page-header-title {
+            margin: 0;
+            color: #321e16;
+            font-size: clamp(1.25rem, 2.4vw, 2rem);
+            font-weight: 700;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        @media (max-width: 520px) {
+            .page-header {
+                grid-template-columns: 96px minmax(0, 1fr) 16px;
+                min-height: 80px;
+            }
+
+            .page-header-logo {
+                height: 76px;
+            }
+
+            .page-header-title {
+                font-size: 1.15rem;
+            }
+        }
+    </style>
     <script src="script.js" defer></script>
 </head>
-<body>
-    
+
+<body class="m-0 min-h-screen">
+    <header class="page-header">
+        <img class="page-header-logo" src="imag/Cantina Logo.png" alt="Cantina Restaurant">
+        <h1 class="page-header-title">Garde-Manger &amp; Planning</h1>
+        <span aria-hidden="true"></span>
+    </header>
+    <main class=" z-10 min-h-screen">
+        <section class="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 xl:grid-cols-5">
+            <div
+                class="h-full w-full bg-white rounded-xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 p-6 font-sans">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Lundi</h2>
+
+                <div class="mb-4">
+                    <span
+                        class="inline-block bg-green-100 text-green-600 text-sm font-medium px-3 py-0.5 rounded-full mb-2">Entrée</span>
+                    <select
+                        class="block w-full px-3 py-2.5 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 text-gray-700 cursor-pointer">
+                        <option value="en-reserve">En réserve</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <span
+                        class="inline-block bg-orange-100 text-orange-600 text-sm font-medium px-3 py-0.5 rounded-full mb-2">Plat
+                        principal</span>
+                    <select
+                        class="block w-full px-3 py-2.5 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 text-gray-700 cursor-pointer">
+                        <option value="en-reserve">En réserve</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <span
+                        class="inline-block bg-pink-100 text-pink-600 text-sm font-medium px-3 py-0.5 rounded-full mb-2">Dessert</span>
+                    <select
+                        class="block w-full px-3 py-2.5 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 text-gray-700 cursor-pointer">
+                        <option value="en-reserve">En réserve</option>
+                    </select>
+                </div>
+
+                <hr class="border-gray-200 my-6">
+
+                <div>
+                    <strong class="text-gray-900 font-semibold text-lg">Total : 0 DH / 50 DH max</strong>
+                </div>
+            </div>
+
+            <div
+                class="h-full w-full bg-white rounded-xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 p-6 font-sans">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Mardi</h2>
+
+                <div class="mb-4">
+                    <span
+                        class="inline-block bg-green-100 text-green-600 text-sm font-medium px-3 py-0.5 rounded-full mb-2">Entrée</span>
+                    <select
+                        class="block w-full px-3 py-2.5 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 text-gray-700 cursor-pointer">
+                        <option value="en-reserve">En réserve</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <span
+                        class="inline-block bg-orange-100 text-orange-600 text-sm font-medium px-3 py-0.5 rounded-full mb-2">Plat
+                        principal</span>
+                    <select
+                        class="block w-full px-3 py-2.5 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 text-gray-700 cursor-pointer">
+                        <option value="en-reserve">En réserve</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <span
+                        class="inline-block bg-pink-100 text-pink-600 text-sm font-medium px-3 py-0.5 rounded-full mb-2">Dessert</span>
+                    <select
+                        class="block w-full px-3 py-2.5 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 text-gray-700 cursor-pointer">
+                        <option value="en-reserve">En réserve</option>
+                    </select>
+                </div>
+
+                <hr class="border-gray-200 my-6">
+
+                <div>
+                    <strong class="text-gray-900 font-semibold text-lg">Total : 0 DH / 50 DH max</strong>
+                </div>
+            </div>
+
+            <div
+                class="h-full w-full bg-white rounded-xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 p-6 font-sans">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Mercredi</h2>
+
+                <div class="mb-4">
+                    <span
+                        class="inline-block bg-green-100 text-green-600 text-sm font-medium px-3 py-0.5 rounded-full mb-2">Entrée</span>
+                    <select
+                        class="block w-full px-3 py-2.5 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 text-gray-700 cursor-pointer">
+                        <option value="en-reserve">En réserve</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <span
+                        class="inline-block bg-orange-100 text-orange-600 text-sm font-medium px-3 py-0.5 rounded-full mb-2">Plat
+                        principal</span>
+                    <select
+                        class="block w-full px-3 py-2.5 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 text-gray-700 cursor-pointer">
+                        <option value="en-reserve">En réserve</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <span
+                        class="inline-block bg-pink-100 text-pink-600 text-sm font-medium px-3 py-0.5 rounded-full mb-2">Dessert</span>
+                    <select
+                        class="block w-full px-3 py-2.5 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 text-gray-700 cursor-pointer">
+                        <option value="en-reserve">En réserve</option>
+                    </select>
+                </div>
+
+                <hr class="border-gray-200 my-6">
+
+                <div>
+                    <strong class="text-gray-900 font-semibold text-lg">Total : 0 DH / 50 DH max</strong>
+                </div>
+            </div>
+
+            <div
+                class="h-full w-full bg-white rounded-xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 p-6 font-sans">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Jeudi</h2>
+
+                <div class="mb-4">
+                    <span
+                        class="inline-block bg-green-100 text-green-600 text-sm font-medium px-3 py-0.5 rounded-full mb-2">Entrée</span>
+                    <select
+                        class="block w-full px-3 py-2.5 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 text-gray-700 cursor-pointer">
+                        <option value="en-reserve">En réserve</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <span
+                        class="inline-block bg-orange-100 text-orange-600 text-sm font-medium px-3 py-0.5 rounded-full mb-2">Plat
+                        principal</span>
+                    <select
+                        class="block w-full px-3 py-2.5 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 text-gray-700 cursor-pointer">
+                        <option value="en-reserve">En réserve</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <span
+                        class="inline-block bg-pink-100 text-pink-600 text-sm font-medium px-3 py-0.5 rounded-full mb-2">Dessert</span>
+                    <select
+                        class="block w-full px-3 py-2.5 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 text-gray-700 cursor-pointer">
+                        <option value="en-reserve">En réserve</option>
+                    </select>
+                </div>
+
+                <hr class="border-gray-200 my-6">
+
+                <div>
+                    <strong class="text-gray-900 font-semibold text-lg">Total : 0 DH / 50 DH max</strong>
+                </div>
+            </div>
+
+            <div
+                class="h-full w-full bg-white rounded-xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 p-6 font-sans">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Vendredi</h2>
+
+                <div class="mb-4">
+                    <span
+                        class="inline-block bg-green-100 text-green-600 text-sm font-medium px-3 py-0.5 rounded-full mb-2">Entrée</span>
+                    <select
+                        class="block w-full px-3 py-2.5 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 text-gray-700 cursor-pointer">
+                        <option value="en-reserve">En réserve</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <span
+                        class="inline-block bg-orange-100 text-orange-600 text-sm font-medium px-3 py-0.5 rounded-full mb-2">Plat
+                        principal</span>
+                    <select
+                        class="block w-full px-3 py-2.5 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 text-gray-700 cursor-pointer">
+                        <option value="en-reserve">En réserve</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <span
+                        class="inline-block bg-pink-100 text-pink-600 text-sm font-medium px-3 py-0.5 rounded-full mb-2">Dessert</span>
+                    <select
+                        class="block w-full px-3 py-2.5 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 text-gray-700 cursor-pointer">
+                        <option value="en-reserve">En réserve</option>
+                    </select>
+                </div>
+
+                <hr class="border-gray-200 my-6">
+
+                <div>
+                    <strong class="text-gray-900 font-semibold text-lg">Total : 0 DH / 50 DH max</strong>
+                </div>
+            </div>
+
+        </section>
+
+        <section aria-label="Plats disponibles" class="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2">
+            <article
+                class="h-full w-full rounded-xl border border-gray-100 bg-white p-5 font-sans shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)]">
+                <div class="mb-2 flex items-center justify-between gap-4">
+                    <h2 class="text-lg font-semibold text-gray-900">Velouté de légumes</h2>
+                    <span class="shrink-0 font-semibold text-gray-900">5 DH</span>
+                </div>
+                <div class="mb-4 flex flex-wrap gap-2">
+                    <span
+                        class="inline-block rounded-full bg-green-100 px-3 py-0.5 text-sm font-medium text-green-600">Entrée</span>
+                    <span
+                        class="inline-block rounded-full bg-green-100 px-3 py-0.5 text-sm font-medium text-green-600">Végétarien</span>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <button type="button" class="rounded-md bg-amber-700 px-3 py-2 text-white">Modifier</button>
+                    <button type="button" class="rounded-md bg-red-600 px-3 py-2 text-white">Supprimer</button>
+                </div>
+            </article>
+
+            <article
+                class="h-full w-full rounded-xl border border-gray-100 bg-white p-5 font-sans shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)]">
+                <div class="mb-2 flex items-center justify-between gap-4">
+                    <h2 class="text-lg font-semibold text-gray-900">Tajine de poulet</h2>
+                    <span class="shrink-0 font-semibold text-gray-900">25 DH</span>
+                </div>
+                <div class="mb-2 flex flex-wrap gap-2">
+                    <span
+                        class="inline-block rounded-full bg-orange-100 px-3 py-0.5 text-sm font-medium text-orange-600">Plat
+                        principal</span>
+                    <span
+                        class="inline-block rounded-full bg-gray-200 px-3 py-0.5 text-sm font-medium text-gray-500">Classique</span>
+                </div>
+            
+                <div class="flex flex-wrap gap-2">
+                    <button type="button" class="rounded-md bg-amber-700 px-3 py-2 text-white">Modifier</button>
+                    <button type="button" class="rounded-md bg-red-600 px-3 py-2 text-white">Supprimer</button>
+                </div>
+            </article>
+        </section>
+
+        <section aria-label="Résumé de la semaine" class="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3">
+            <article class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+                <h2 class="mb-2 text-base font-normal text-gray-500">Plats dans la réserve</h2>
+                <p class="text-3xl font-bold text-gray-900">0</p>
+            </article>
+
+            <article class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+                <h2 class="mb-2 text-base font-normal text-gray-500">Jours prêts</h2>
+                <p class="text-3xl font-bold text-gray-900">0/5</p>
+            </article>
+
+            <article class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+                <h2 class="mb-2 text-base font-normal text-gray-500">Coût de la semaine / apprenant</h2>
+                <p class="text-3xl font-bold text-gray-900">0 DH</p>
+            </article>
+        </section>
+
+    </main>
+    <footer>
+
+    </footer>
+
 </body>
+
 </html>
