@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cantina - Planning de la semaine</title>
     <link rel="stylesheet" href="output.css">
+    <script src="script.js" defer></script>
 </head>
 
 <body class="bg-gray-100 font-sans text-gray-800">
-    <header class=" flex flex-row justify-centerborder-b bg-white">
+    <header  class=" flex flex-row justify-center border-b bg-white">
         <div class="mx-auto flex max-w-6xl items-center gap-4 p-4">
-            <img class=" h-16 w-24 object-contain" src="imag/Cantina Logo.png" alt="Logo Cantina">
+            <img class="h-16 w-24 object-contain" src="imag/Cantina Logo.png" alt="Logo Cantina">
             <div>
                 <h1 class="text-xl font-bold">Garde-Manger</h1>
                 <p class="text-sm text-gray-500">Planning de la cantine YouCode</p>
@@ -25,202 +26,248 @@
             <p class="text-gray-600">Choisissez les repas pour chaque jour. Le budget maximum est de 50 DH par jour.</p>
         </section>
 
-        <section class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3" aria-label="Résumé">
+        <section class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4" aria-label="Résumé">
             <div class="rounded border bg-white p-4">
                 <p class="text-sm text-gray-500">Recettes dans la réserve</p>
-                <p class="mt-1 text-2xl font-bold">6</p>
+                <p id="stat-recipes" class="mt-1 text-2xl font-bold">0</p>
             </div>
             <div class="rounded border bg-white p-4">
-                <p class="text-sm text-gray-500">Jours planifiés</p>
-                <p class="mt-1 text-2xl font-bold">0 / 5</p>
+                <p class="text-sm text-gray-500">Jours prêts</p>
+                <p id="stat-days" class="mt-1 text-2xl font-bold">0 / 5</p>
             </div>
             <div class="rounded border bg-white p-4">
-                <p class="text-sm text-gray-500">Budget maximum par jour</p>
-                <p class="mt-1 text-2xl font-bold">50 DH</p>
+                <p class="text-sm text-gray-500">Coût de la semaine / apprenant</p>
+                <p id="stat-total" class="mt-1 text-2xl font-bold">0 DH / 250 DH</p>
+            </div>
+            <div class="rounded border bg-white p-4">
+                <p class="text-sm text-gray-500">Équilibre alimentaire</p>
+                <p id="stat-balance" class="mt-1 inline-block rounded px-2 py-1 text-sm font-bold"></p>
             </div>
         </section>
 
         <section class="mb-8" aria-labelledby="planning-title">
             <h2 id="planning-title" class="mb-4 text-xl font-bold">Planning des repas</h2>
-
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            <div id="planning-grid" class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
                 <article class="rounded border bg-white p-4">
-                    <h3 class="mb-4 text-lg font-bold">Lundi</h3>
-                    <label class="mb-3 block text-sm">Entrée
-                        <select class="mt-1 w-full rounded border p-2" aria-label="Entrée du lundi">
-                            <option>Choisir une entrée</option>
-                            <option>Velouté de légumes - 5 DH</option>
-                            <option>Salade marocaine - 8 DH</option>
+                    <div class="mb-4 flex items-center justify-between">
+                        <h3 class="text-lg font-bold">Lundi</h3>
+                        <button type="button" data-action="clear-day" data-day="Lundi"
+                            class="text-xs text-red-700 underline">Vider</button>
+                    </div>
+                    <label class="mb-3 block text-sm">
+                        <span
+                            class="inline-block rounded px-2 py-0.5 text-xs font-semibold bg-green-100 text-green-800">Entrée</span>
+                        <select data-day="Lundi" data-slot="Entrée" class="mt-1 w-full rounded border p-2">
+                            <option value="">En réserve</option>
                         </select>
                     </label>
-                    <label class="mb-3 block text-sm">Plat principal
-                        <select class="mt-1 w-full rounded border p-2" aria-label="Plat principal du lundi">
-                            <option>Choisir un plat</option>
-                            <option>Tajine de poulet - 25 DH</option>
-                            <option>Couscous aux légumes - 22 DH</option>
+                    <label class="mb-3 block text-sm">
+                        <span
+                            class="inline-block rounded px-2 py-0.5 text-xs font-semibold bg-orange-100 text-orange-800">Plat
+                            principal</span>
+                        <select data-day="Lundi" data-slot="Plat principal" class="mt-1 w-full rounded border p-2">
+                            <option value="">En réserve</option>
                         </select>
                     </label>
-                    <label class="block text-sm">Dessert
-                        <select class="mt-1 w-full rounded border p-2" aria-label="Dessert du lundi">
-                            <option>Choisir un dessert</option>
-                            <option>Orange de saison - 4 DH</option>
-                            <option>Yaourt nature - 5 DH</option>
+                    <label class="mb-3 block text-sm">
+                        <span
+                            class="inline-block rounded px-2 py-0.5 text-xs font-semibold bg-pink-100 text-pink-800">Dessert</span>
+                        <select data-day="Lundi" data-slot="Dessert" class="mt-1 w-full rounded border p-2">
+                            <option value="">En réserve</option>
                         </select>
                     </label>
-                    <p class="mt-4 border-t pt-3 text-sm">Total : — DH / 50 DH</p>
+                    <p class="mt-4 border-t pt-3 text-sm font-semibold">Total : <span id="total-Lundi">0</span> DH / 50
+                        DH max</p>
                 </article>
 
                 <article class="rounded border bg-white p-4">
-                    <h3 class="mb-4 text-lg font-bold">Mardi</h3>
-                    <label class="mb-3 block text-sm">Entrée
-                        <select class="mt-1 w-full rounded border p-2" aria-label="Entrée du mardi">
-                            <option>Choisir une entrée</option>
-                            <option>Velouté de légumes - 5 DH</option>
-                            <option>Salade marocaine - 8 DH</option>
+                    <div class="mb-4 flex items-center justify-between">
+                        <h3 class="text-lg font-bold">Mardi</h3>
+                        <button type="button" data-action="clear-day" data-day="Mardi"
+                            class="text-xs text-red-700 underline">Vider</button>
+                    </div>
+                    <label class="mb-3 block text-sm">
+                        <span
+                            class="inline-block rounded px-2 py-0.5 text-xs font-semibold bg-green-100 text-green-800">Entrée</span>
+                        <select data-day="Mardi" data-slot="Entrée" class="mt-1 w-full rounded border p-2">
+                            <option value="">En réserve</option>
                         </select>
                     </label>
-                    <label class="mb-3 block text-sm">Plat principal
-                        <select class="mt-1 w-full rounded border p-2" aria-label="Plat principal du mardi">
-                            <option>Choisir un plat</option>
-                            <option>Tajine de poulet - 25 DH</option>
-                            <option>Couscous aux légumes - 22 DH</option>
+                    <label class="mb-3 block text-sm">
+                        <span
+                            class="inline-block rounded px-2 py-0.5 text-xs font-semibold bg-orange-100 text-orange-800">Plat
+                            principal</span>
+                        <select data-day="Mardi" data-slot="Plat principal" class="mt-1 w-full rounded border p-2">
+                            <option value="">En réserve</option>
                         </select>
                     </label>
-                    <label class="block text-sm">Dessert
-                        <select class="mt-1 w-full rounded border p-2" aria-label="Dessert du mardi">
-                            <option>Choisir un dessert</option>
-                            <option>Orange de saison - 4 DH</option>
-                            <option>Yaourt nature - 5 DH</option>
+                    <label class="mb-3 block text-sm">
+                        <span
+                            class="inline-block rounded px-2 py-0.5 text-xs font-semibold bg-pink-100 text-pink-800">Dessert</span>
+                        <select data-day="Mardi" data-slot="Dessert" class="mt-1 w-full rounded border p-2">
+                            <option value="">En réserve</option>
                         </select>
                     </label>
-                    <p class="mt-4 border-t pt-3 text-sm">Total : — DH / 50 DH</p>
+                    <p class="mt-4 border-t pt-3 text-sm font-semibold">Total : <span id="total-Mardi">0</span> DH / 50
+                        DH max</p>
                 </article>
 
                 <article class="rounded border bg-white p-4">
-                    <h3 class="mb-4 text-lg font-bold">Mercredi</h3>
-                    <label class="mb-3 block text-sm">Entrée
-                        <select class="mt-1 w-full rounded border p-2" aria-label="Entrée du mercredi">
-                            <option>Choisir une entrée</option>
-                            <option>Velouté de légumes - 5 DH</option>
-                            <option>Salade marocaine - 8 DH</option>
+                    <div class="mb-4 flex items-center justify-between">
+                        <h3 class="text-lg font-bold">Mercredi</h3>
+                        <button type="button" data-action="clear-day" data-day="Mercredi"
+                            class="text-xs text-red-700 underline">Vider</button>
+                    </div>
+                    <label class="mb-3 block text-sm">
+                        <span
+                            class="inline-block rounded px-2 py-0.5 text-xs font-semibold bg-green-100 text-green-800">Entrée</span>
+                        <select data-day="Mercredi" data-slot="Entrée" class="mt-1 w-full rounded border p-2">
+                            <option value="">En réserve</option>
                         </select>
                     </label>
-                    <label class="mb-3 block text-sm">Plat principal
-                        <select class="mt-1 w-full rounded border p-2" aria-label="Plat principal du mercredi">
-                            <option>Choisir un plat</option>
-                            <option>Tajine de poulet - 25 DH</option>
-                            <option>Couscous aux légumes - 22 DH</option>
+                    <label class="mb-3 block text-sm">
+                        <span
+                            class="inline-block rounded px-2 py-0.5 text-xs font-semibold bg-orange-100 text-orange-800">Plat
+                            principal</span>
+                        <select data-day="Mercredi" data-slot="Plat principal" class="mt-1 w-full rounded border p-2">
+                            <option value="">En réserve</option>
                         </select>
                     </label>
-                    <label class="block text-sm">Dessert
-                        <select class="mt-1 w-full rounded border p-2" aria-label="Dessert du mercredi">
-                            <option>Choisir un dessert</option>
-                            <option>Orange de saison - 4 DH</option>
-                            <option>Yaourt nature - 5 DH</option>
+                    <label class="mb-3 block text-sm">
+                        <span
+                            class="inline-block rounded px-2 py-0.5 text-xs font-semibold bg-pink-100 text-pink-800">Dessert</span>
+                        <select data-day="Mercredi" data-slot="Dessert" class="mt-1 w-full rounded border p-2">
+                            <option value="">En réserve</option>
                         </select>
                     </label>
-                    <p class="mt-4 border-t pt-3 text-sm">Total : — DH / 50 DH</p>
+                    <p class="mt-4 border-t pt-3 text-sm font-semibold">Total : <span id="total-Mercredi">0</span> DH /
+                        50 DH max</p>
                 </article>
 
                 <article class="rounded border bg-white p-4">
-                    <h3 class="mb-4 text-lg font-bold">Jeudi</h3>
-                    <label class="mb-3 block text-sm">Entrée
-                        <select class="mt-1 w-full rounded border p-2" aria-label="Entrée du jeudi">
-                            <option>Choisir une entrée</option>
-                            <option>Velouté de légumes - 5 DH</option>
-                            <option>Salade marocaine - 8 DH</option>
+                    <div class="mb-4 flex items-center justify-between">
+                        <h3 class="text-lg font-bold">Jeudi</h3>
+                        <button type="button" data-action="clear-day" data-day="Jeudi"
+                            class="text-xs text-red-700 underline">Vider</button>
+                    </div>
+                    <label class="mb-3 block text-sm">
+                        <span
+                            class="inline-block rounded px-2 py-0.5 text-xs font-semibold bg-green-100 text-green-800">Entrée</span>
+                        <select data-day="Jeudi" data-slot="Entrée" class="mt-1 w-full rounded border p-2">
+                            <option value="">En réserve</option>
                         </select>
                     </label>
-                    <label class="mb-3 block text-sm">Plat principal
-                        <select class="mt-1 w-full rounded border p-2" aria-label="Plat principal du jeudi">
-                            <option>Choisir un plat</option>
-                            <option>Tajine de poulet - 25 DH</option>
-                            <option>Couscous aux légumes - 22 DH</option>
+                    <label class="mb-3 block text-sm">
+                        <span
+                            class="inline-block rounded px-2 py-0.5 text-xs font-semibold bg-orange-100 text-orange-800">Plat
+                            principal</span>
+                        <select data-day="Jeudi" data-slot="Plat principal" class="mt-1 w-full rounded border p-2">
+                            <option value="">En réserve</option>
                         </select>
                     </label>
-                    <label class="block text-sm">Dessert
-                        <select class="mt-1 w-full rounded border p-2" aria-label="Dessert du jeudi">
-                            <option>Choisir un dessert</option>
-                            <option>Orange de saison - 4 DH</option>
-                            <option>Yaourt nature - 5 DH</option>
+                    <label class="mb-3 block text-sm">
+                        <span
+                            class="inline-block rounded px-2 py-0.5 text-xs font-semibold bg-pink-100 text-pink-800">Dessert</span>
+                        <select data-day="Jeudi" data-slot="Dessert" class="mt-1 w-full rounded border p-2">
+                            <option value="">En réserve</option>
                         </select>
                     </label>
-                    <p class="mt-4 border-t pt-3 text-sm">Total : — DH / 50 DH</p>
+                    <p class="mt-4 border-t pt-3 text-sm font-semibold">Total : <span id="total-Jeudi">0</span> DH / 50
+                        DH max</p>
                 </article>
 
                 <article class="rounded border bg-white p-4">
-                    <h3 class="mb-4 text-lg font-bold">Vendredi</h3>
-                    <label class="mb-3 block text-sm">Entrée
-                        <select class="mt-1 w-full rounded border p-2" aria-label="Entrée du vendredi">
-                            <option>Choisir une entrée</option>
-                            <option>Velouté de légumes - 5 DH</option>
-                            <option>Salade marocaine - 8 DH</option>
+                    <div class="mb-4 flex items-center justify-between">
+                        <h3 class="text-lg font-bold">Vendredi</h3>
+                        <button type="button" data-action="clear-day" data-day="Vendredi"
+                            class="text-xs text-red-700 underline">Vider</button>
+                    </div>
+                    <label class="mb-3 block text-sm">
+                        <span
+                            class="inline-block rounded px-2 py-0.5 text-xs font-semibold bg-green-100 text-green-800">Entrée</span>
+                        <select data-day="Vendredi" data-slot="Entrée" class="mt-1 w-full rounded border p-2">
+                            <option value="">En réserve</option>
                         </select>
                     </label>
-                    <label class="mb-3 block text-sm">Plat principal
-                        <select class="mt-1 w-full rounded border p-2" aria-label="Plat principal du vendredi">
-                            <option>Choisir un plat</option>
-                            <option>Tajine de poulet - 25 DH</option>
-                            <option>Couscous aux légumes - 22 DH</option>
+                    <label class="mb-3 block text-sm">
+                        <span
+                            class="inline-block rounded px-2 py-0.5 text-xs font-semibold bg-orange-100 text-orange-800">Plat
+                            principal</span>
+                        <select data-day="Vendredi" data-slot="Plat principal" class="mt-1 w-full rounded border p-2">
+                            <option value="">En réserve</option>
                         </select>
                     </label>
-                    <label class="block text-sm">Dessert
-                        <select class="mt-1 w-full rounded border p-2" aria-label="Dessert du vendredi">
-                            <option>Choisir un dessert</option>
-                            <option>Orange de saison - 4 DH</option>
-                            <option>Yaourt nature - 5 DH</option>
+                    <label class="mb-3 block text-sm">
+                        <span
+                            class="inline-block rounded px-2 py-0.5 text-xs font-semibold bg-pink-100 text-pink-800">Dessert</span>
+                        <select data-day="Vendredi" data-slot="Dessert" class="mt-1 w-full rounded border p-2">
+                            <option value="">En réserve</option>
                         </select>
                     </label>
-                    <p class="mt-4 border-t pt-3 text-sm">Total : — DH / 50 DH</p>
+                    <p class="mt-4 border-t pt-3 text-sm font-semibold">Total : <span id="total-Vendredi">0</span> DH /
+                        50 DH max</p>
                 </article>
             </div>
         </section>
 
         <section class="mb-8" aria-labelledby="reserve-title">
             <h2 id="reserve-title" class="mb-4 text-xl font-bold">Réserve de recettes</h2>
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                <article class="rounded border bg-white p-4">
-                    <h3 class="font-bold">Velouté de légumes</h3>
-                    <p class="mt-2 text-sm text-gray-600">Entrée · Végétarien</p>
-                    <p class="mt-2 font-semibold">5 DH</p>
-                </article>
-                <article class="rounded border bg-white p-4">
-                    <h3 class="font-bold">Salade marocaine</h3>
-                    <p class="mt-2 text-sm text-gray-600">Entrée · Végétarien</p>
-                    <p class="mt-2 font-semibold">8 DH</p>
-                </article>
-                <article class="rounded border bg-white p-4">
-                    <h3 class="font-bold">Tajine de poulet</h3>
-                    <p class="mt-2 text-sm text-gray-600">Plat principal · Classique</p>
-                    <p class="mt-2 font-semibold">25 DH</p>
-                </article>
-                <article class="rounded border bg-white p-4">
-                    <h3 class="font-bold">Couscous aux légumes</h3>
-                    <p class="mt-2 text-sm text-gray-600">Plat principal · Végétarien</p>
-                    <p class="mt-2 font-semibold">22 DH</p>
-                </article>
-                <article class="rounded border bg-white p-4">
-                    <h3 class="font-bold">Orange de saison</h3>
-                    <p class="mt-2 text-sm text-gray-600">Dessert · Végétarien</p>
-                    <p class="mt-2 font-semibold">4 DH</p>
-                </article>
-                <article class="rounded border bg-white p-4">
-                    <h3 class="font-bold">Yaourt nature</h3>
-                    <p class="mt-2 text-sm text-gray-600">Dessert · Végétarien</p>
-                    <p class="mt-2 font-semibold">5 DH</p>
-                </article>
-            </div>
+            <div id="recipes-grid" class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"></div>
         </section>
 
         <section class="rounded border bg-white p-4" aria-labelledby="add-recipe-title">
             <h2 id="add-recipe-title" class="text-xl font-bold">Ajouter une recette</h2>
-            <p class="mt-2 text-gray-600">Le formulaire sera ajouté plus tard.</p>
-            <button id="add-recipe-button" class="mt-4 rounded bg-red-700 px-4 py-2 font-semibold text-white hover:bg-red-800"
-                type="button">
+            <button id="add-recipe-button"
+                class="mt-4 rounded bg-red-700 px-4 py-2 font-semibold text-white hover:bg-red-800" type="button">
                 + Ajouter à la réserve
             </button>
         </section>
     </main>
+
+    <!-- Modal -->
+    <div id="modal-overlay" class="fixed inset-0 z-40 hidden items-center justify-center bg-black/50 p-4">
+        <div id="modal-box" class="w-full max-w-md rounded bg-white p-6">
+            <div class="mb-4 flex items-center justify-between">
+                <h2 id="modal-title" class="text-xl font-bold">Ajouter une recette</h2>
+                <button id="modal-close" type="button" class="text-2xl leading-none" aria-label="Fermer">×</button>
+            </div>
+            <form id="recipe-form" novalidate class="grid gap-3">
+                <div>
+                    <input id="f-name" type="text" placeholder="Nom du plat" class="w-full rounded border p-2">
+                    <p id="e-name" class="mt-1 text-sm text-red-600"></p>
+                </div>
+                <div>
+                    <select id="f-category" class="w-full rounded border p-2">
+                        <option value="">Choisir une catégorie</option>
+                        <option>Entrée</option>
+                        <option>Plat principal</option>
+                        <option>Dessert</option>
+                    </select>
+                    <p id="e-category" class="mt-1 text-sm text-red-600"></p>
+                </div>
+                <div>
+                    <input id="f-price" type="text" inputmode="decimal" placeholder="Prix (DH)"
+                        class="w-full rounded border p-2">
+                    <p id="e-price" class="mt-1 text-sm text-red-600"></p>
+                </div>
+                <select id="f-diet" class="rounded border p-2">
+                    <option>Classique</option>
+                    <option>Végétarien</option>
+                    <option>Bio</option>
+                </select>
+                <div class="flex gap-2">
+                    <button id="modal-submit" type="submit"
+                        class="rounded bg-green-700 px-4 py-2 font-semibold text-white hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-50"
+                        >Valider</button>
+                    <button id="modal-cancel" type="button"
+                        class="rounded border px-4 py-2 font-semibold">Annuler</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toasts -->
+    <div id="toast-container" class="fixed right-4 top-4 z-50 flex flex-col gap-2"></div>
 </body>
 
 </html>
