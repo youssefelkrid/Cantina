@@ -58,3 +58,73 @@ form.addEventListener("submit", function (e) {
   renderRecipes();
   closeModal();
 });
+
+const errName = document.getElementById("e-name");
+const errCategory = document.getElementById("e-category");
+const errPrice = document.getElementById("e-price");
+const submitBtn = document.getElementById("modal-submit");
+
+const regexName = /^.{3,30}$/;
+const regexPrice = /^\d+(\.\d+)?$/;
+
+function validateForm() {
+  let isValid = true;
+
+  // Nom
+  if (regexName.test(inputName.value.trim())) {
+    errName.textContent = "";
+  } else {
+    errName.textContent = "Le nom doit contenir entre 3 et 30 caractères.";
+    isValid = false;
+  }
+
+  // Catégorie
+  if (inputCategory.value !== "") {
+    errCategory.textContent = "";
+  } else {
+    errCategory.textContent = "La catégorie est obligatoire.";
+    isValid = false;
+  }
+
+  // Prix
+  if (regexPrice.test(inputPrice.value) && Number(inputPrice.value) > 0) {
+    errPrice.textContent = "";
+  } else {
+    errPrice.textContent = "Le prix doit être un nombre positif.";
+    isValid = false;
+  }
+
+  submitBtn.disabled = !isValid;
+}
+inputName.addEventListener("input", validateForm);
+inputCategory.addEventListener("change", validateForm);
+inputPrice.addEventListener("input", validateForm);
+
+function openModal() {
+  overlay.classList.remove("hidden");
+  overlay.classList.add("flex");
+  submitBtn.disabled = true;
+}
+
+function closeModal() {
+  overlay.classList.add("hidden");
+  overlay.classList.remove("flex");
+  form.reset();
+  errName.textContent = "";
+  errCategory.textContent = "";
+  errPrice.textContent = "";
+}
+
+let nextId = 1;
+const planningGrid = document.getElementById("planning-grid");
+const days = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
+const newRecipe = {
+  id: nextId,
+  name: inputName.value.trim(),
+  category: inputCategory.value,
+  price: Number(inputPrice.value),
+  diet: inputDiet.value,
+  day: null,
+};
+nextId = nextId + 1;
+refreshAll();
