@@ -1,130 +1,127 @@
-let recipes = [];
+let recipes = [] ;
+let nextId = 1;
+let days = ["Lundi","Mardi","Mercredi","Jeudi","Vendredi"];
+let MAX_PER_DAY = 50 ; 
 
-const addBtn = document.getElementById("add-recipe-button");
-const overlay = document.getElementById("modal-overlay");
-const closeBtn = document.getElementById("modal-close");
-const cancelBtn = document.getElementById("modal-cancel");
-const form = document.getElementById("recipe-form");
-const recipesGrid = document.getElementById("recipes-grid");
+//je rele javascript avec html 
+let addbtn = document.getElementById("add-recipe-button");
+let overlay = document.getElementById("modal-overlay");
+let modalTitle =  document.getElementById("modal-title");
+let closeBtn = document.getElementById("modal-close");
+let cancelBtn = document.getElementById("modal-cancel");
+let form = document.getElementById("recipe-form");
+let inputName = document.getElementById("f-name");
+let inputCategory = document.getElementById("f-category");
+let inputPrice = document.getElementById("f-price");
+let inputDiet = document.getElementById("f-diet");
+let submitBtn = document.getElementById("modal-submit");
+let recipesGrid = document.getElementById("recipes-grid");
+let planningGrid = document.getElementById("planning-grid");
 
-const inputName = document.getElementById("f-name");
-const inputCategory = document.getElementById("f-category");
-const inputPrice = document.getElementById("f-price");
-const inputDiet = document.getElementById("f-diet");
+let editingId = null;
 
-function openModal() {
-  overlay.classList.remove("hidden");
-  overlay.classList.add("flex");
+function openModal(recipe){
+    if(recipe !==null){
+        editingId = recipe.id ;
+        modalTitle.textContent = "Modifier la recette" ; 
+        inputName.value = recipe.name ; 
+        inputCategory.value = recipe.category;
+        inputPrice.value = recipe.price;
+        inputDiet.value = recipe.diet;
+    }else{
+        editingId= null ;
+        modalTitle.textContent = "Ajouter une recette ";
+
+    }
+    overlay.classList.remove("hidden");
+    overlay.classList.add("flex");
+}
+function closeModel(){
+    overlay.classList.add("hidden");
+    overlay.classList.remove("flex");
+    form.reset();
+    editingId = null ;
 }
 
-function closeModal() {
-  overlay.classList.add("hidden");
-  overlay.classList.remove("flex");
-  form.reset();
-}
+addbtn.addEventListener("click", function(){
+    openModal(null);
+});
+closeBtn.addEventListener("click" , closeModel); //pour fermer la case
+cancelBtn.addEventListener("click",closeModel ); //c'est pour le botun cancal 
 
-addBtn.addEventListener("click", openModal);
-closeBtn.addEventListener("click", closeModal);
-cancelBtn.addEventListener("click", closeModal);
 
-function renderRecipes() {
-  recipesGrid.innerHTML = "";
+form.addEventListener("submit", function(e){     //pour valider la recette 
+    e.preventDefault();// pour arrite la page Acctuiliser 
+  let nameValue = inputName.value;
+  let categoryValue = inputCategory.value;
+  let priceValue = Number(inputPrice.value); 
+  let dietValue = inputDiet.value;
 
-  for (let i = 0; i < recipes.length; i++) {
-    const recipe = recipes[i];
-
-    recipesGrid.innerHTML += `
-      <article class="rounded border bg-white p-4">
-        <h3 class="font-bold">${recipe.name}</h3>
-        <p>${recipe.category}</p>
-        <p>${recipe.price} DH</p>
-        <p>${recipe.diet}</p>
-      </article>
-    `;
+  if(nameValue === "" || priceValue <=0){
+    alert("S'il vous plait verfier le nom et price ");
+    return ;
   }
-}
 
-form.addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  const newRecipe = {
-    name: inputName.value,
-    category: inputCategory.value,
-    price: inputPrice.value,
-    diet: inputDiet.value,
-  };
-
-  recipes.push(newRecipe);
+  if(editingId === null){
+    let newRecipe = {
+        id : nextId ,
+        name : nameValue ,
+        category : categoryValue ,
+        price : priceValue ,
+        diet : dietValue ,
+        day : null  
+    };
+    recipes.push(newRecipe); // en pue Ajouter les recette dans new tableau 
+    nextId = nextId + 1 ; // et ses en puet donnier 1 a la recette et suivant prondre 2
+    alert("succe la recette");
+  }else{
+    alert("modification plus tard")
+  }
+  closeModel();
+  console.log(recipes) ;
   renderRecipes();
-  closeModal();
+  filleSelects();
+
+  
+
+
 });
 
-const errName = document.getElementById("e-name");
-const errCategory = document.getElementById("e-category");
-const errPrice = document.getElementById("e-price");
-const submitBtn = document.getElementById("modal-submit");
+function renderRecipes(){
+     recipesGrid.innerHTML = "";
 
-const regexName = /^.{3,30}$/;
-const regexPrice = /^\d+(\.\d+)?$/;
+    for(let i = 0 ; i<recipes.length ; i++) {
+        let recipe = recipes[i];
 
-function validateForm() {
-  let isValid = true;
-
-  // Nom
-  if (regexName.test(inputName.value.trim())) {
-    errName.textContent = "";
-  } else {
-    errName.textContent = "Le nom doit contenir entre 3 et 30 caractères.";
-    isValid = false;
-  }
-
-  // Catégorie
-  if (inputCategory.value !== "") {
-    errCategory.textContent = "";
-  } else {
-    errCategory.textContent = "La catégorie est obligatoire.";
-    isValid = false;
-  }
-
-  // Prix
-  if (regexPrice.test(inputPrice.value) && Number(inputPrice.value) > 0) {
-    errPrice.textContent = "";
-  } else {
-    errPrice.textContent = "Le prix doit être un nombre positif.";
-    isValid = false;
-  }
-
-  submitBtn.disabled = !isValid;
+        let cardHtml = '<article class="rounded border bg-white p-4 mb-2">';
+    cardHtml += '<h3 class="font-bold">' + recipe.name + '</h3>';
+    cardHtml += '<p class="text-gray-600">' + recipe.category + '</p>';
+    cardHtml += '<p class="text-blue-600 font-bold">' + recipe.price + ' DH</p>';
+    cardHtml += '<span class="bg-gray-200 text-xs px-2 py-1 rounded">' + recipe.diet + '</span>';
+    
+    cardHtml += '</article>';
+     
+    recipesGrid.innerHTML = recipesGrid.innerHTML + cardHtml ;
+    }
 }
-inputName.addEventListener("input", validateForm);
-inputCategory.addEventListener("change", validateForm);
-inputPrice.addEventListener("input", validateForm);
+ 
+function filleSelects() {
+    let selects = document.querySelectorAll("#planning-grid select");
+    for(let i=0 ;i <selects.length;i++ ){
+        let select = selects[i];
+        let day = select.dataset.day ; 
+        let slot = select.dataset.slot ;
+        let htmlContent = '<option value="">En réserve</option>';
 
-function openModal() {
-  overlay.classList.remove("hidden");
-  overlay.classList.add("flex");
-  submitBtn.disabled = true;
+        for(let j = 0 ; j < recipes.length;j++){
+            let r = recipes[j];
+            if(r.category === slot){
+
+                if(r.day === null || r.day === day){
+                    htmlContent = htmlContent + '<option value="' + r.id + '">' + r.name + ' (' + r.price + ' DH)</option>';
+                }
+            }
+        }
+        select.innerHTML = htmlContent;
+    }
 }
-
-function closeModal() {
-  overlay.classList.add("hidden");
-  overlay.classList.remove("flex");
-  form.reset();
-  errName.textContent = "";
-  errCategory.textContent = "";
-  errPrice.textContent = "";
-}
-
-let nextId = 1;
-const planningGrid = document.getElementById("planning-grid");
-const days = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
-const newRecipe = {
-  id: nextId,
-  name: inputName.value.trim(),
-  category: inputCategory.value,
-  price: Number(inputPrice.value),
-  diet: inputDiet.value,
-  day: null,
-};
-nextId = nextId + 1;
-refreshAll();
