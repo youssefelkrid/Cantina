@@ -165,6 +165,8 @@ function updateStats() {
     let reserveCount = 0;
     let weekTotal = 0;
     let daysReady = 0;
+    let balanced = false ;
+
 
     for (let i = 0; i < recipes.length; i++) {
         if (recipes[i].day === null) {
@@ -179,6 +181,9 @@ function updateStats() {
         for (let j = 0; j < recipes.length; j++) {
             if (recipes[j].day === days[i]) {
                 daysReady++;
+                if(recipes[j].diet === "Végétarien"){
+                    balanced = true ;
+                }
                 break;
             }
         }
@@ -187,11 +192,18 @@ function updateStats() {
     document.getElementById("stat-recipes").textContent = reserveCount;
     document.getElementById("stat-days").textContent = daysReady + " / 5";
     document.getElementById("stat-total").textContent = weekTotal + " DH / 250 DH";
+
+        let balancedElement = document.getElementById("stat-balance");
+        if(balanced){
+            balancedElement.textContent = "Équilibre";
+        }else{
+            balancedElement.textContent = "Nos Équilibre" ;
+        }
 }
 
 
 planningGrid.addEventListener("change", function (e) {
-    let select = e.target;
+    let select = e.target; 
 
     if (select.tagName !== "SELECT") { 
         return;
@@ -222,7 +234,7 @@ planningGrid.addEventListener("change", function (e) {
         }
     }
 
-    // vider la place (enlever l'ancienne recette de ce slot)
+    // vider la place
     for (let i = 0; i < recipes.length; i++) {
         if (recipes[i].day === day && recipes[i].category === slot) {
             recipes[i].day = null;
@@ -264,3 +276,4 @@ planningGrid.addEventListener("click", function (e) {
     updateTotals();
     updateStats();
 });
+
