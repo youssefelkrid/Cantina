@@ -290,18 +290,26 @@ planningGrid.addEventListener("click", function (e) {
     updateTotals();
     updateStats();
 });
-recipesGrid.addEventListener("click" , function (e){
-    let btn = e.target ;
-    let action = btn.dataset.action ;
-    if(action === undefined){
-        return ;
+recipesGrid.addEventListener("click", function (e) {
+    let btn = e.target;
+    let action = btn.dataset.action;
+
+    if (action === undefined) {
+        return;
     }
+
     let id = Number(btn.dataset.id);
-    if(action ==="delete"){
+    let recipe = findRecipe(id);
+
+    if (recipe.day !== null) {
+        alert("Cette recette est utilisée le " + recipe.day + ". Retire-la du planning d'abord.");
+        return;
+    }
+
+    if (action === "delete") {
         deleteRecipe(id);
     }
-    if(action === "edit") {
-        let recipe = findRecipe(id);
-        openModal(recipe)
+    if (action === "edit") {
+        openModal(recipe);
     }
 });
