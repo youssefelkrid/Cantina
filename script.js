@@ -93,15 +93,16 @@ function renderRecipes() {
         let recipe = recipes[i];
 
         
-        if (recipe.day !== null) {
-            continue;
-        }
 
         let cardHtml = '<article class="rounded border bg-white p-4 mb-2">';
         cardHtml += '<h3 class="font-bold">' + recipe.name + '</h3>';
         cardHtml += '<p class="text-gray-600">' + recipe.category + '</p>';
         cardHtml += '<p class="text-blue-600 font-bold">' + recipe.price + ' DH</p>';
         cardHtml += '<span class="bg-gray-200 text-xs px-2 py-1 rounded">' + recipe.diet + '</span>';
+        cardHtml += '<div class = " mt-2 flex gap-2">'
+       cardHtml += '<button data-action="edit" data-id="' + recipe.id + '" class="rounded border px-2 py-1 text-sm">Modifier</button>';
+       cardHtml += '<button data-action="delete" data-id="' + recipe.id + '" class="rounded border border-red-500 px-2 py-1 text-sm text-red-600">Supprimer</button>'; 
+       cardHtml +='</div>' ;
         cardHtml += '</article>';
 
         recipesGrid.innerHTML = recipesGrid.innerHTML + cardHtml;
@@ -115,7 +116,20 @@ function findRecipe(id) {
         }
     }
     return null;
+    
 }
+function deleteRecipe(id) {
+    for(let i = 0 ; i< recipes.length ; i++){
+        if(recipes[i].id === id) {
+            recipes.splice(i,1);
+             break ;
+        }
+    }
+    renderRecipes();
+    filleSelects();
+    updateTotals();
+    updateStats();
+    }
 
 function filleSelects() {
     let selects = document.querySelectorAll("#planning-grid select");
@@ -276,4 +290,18 @@ planningGrid.addEventListener("click", function (e) {
     updateTotals();
     updateStats();
 });
-
+recipesGrid.addEventListener("click" , function (e){
+    let btn = e.target ;
+    let action = btn.dataset.action ;
+    if(action === undefined){
+        return ;
+    }
+    let id = Number(btn.dataset.id);
+    if(action ==="delete"){
+        deleteRecipe(id);
+    }
+    if(action === "edit") {
+        let recipe = findRecipe(id);
+        openModal(recipe)
+    }
+});
